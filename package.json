@@ -1,0 +1,31 @@
+{
+  "name": "meadowlark",
+  "version": "1.0.0",
+  "description": "site feito pelo livro de programação web com node e react",
+  "main": "meadowlark.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adiells/meadowlark.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "site",
+    "javascript",
+    "meadowlark",
+    "estudo",
+    "livro"
+  ],
+  "author": "Adiel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Adiells/meadowlark/issues"
+  },
+  "homepage": "https://github.com/Adiells/meadowlark#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
