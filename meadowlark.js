@@ -1,21 +1,26 @@
 const handlers = require('./lib/handlers')
-const fortune = require('./lib/fortune')
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 
 const app = express()
+app.disable('x-powered-by');
 const port = process.env.PORT || 3000
 
 const hbs = expressHandlebars.create({
-    defaultLayout: 'main'
+    defaultLayout: 'main',
+    helpers: {
+        section: function(name, options){
+            if(!this._sections)this._sections={}
+            this._sections[name] = options.fn(this)
+            return null
+        }
+    }
 });
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 app.use(express.static(__dirname + '/public'))
-
-app.get('/', handlers.home)
 
 app.get('/headers', (req, res) => {
     res.type('text/plain')
@@ -24,9 +29,9 @@ app.get('/headers', (req, res) => {
     res.send(headers.join('\n'))
 })
 
-app.get('/about', (req, res) => {
-    res.render('about', {fortune: fortune.getFortune()})
-})
+app.get('/', handlers.home)
+
+app.get('/about', handlers.about)
 
 // página 404 personalizada
 app.use(handlers.notFound)
