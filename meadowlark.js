@@ -1,9 +1,10 @@
-const handlers = require('./lib/handlers')
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 
+const handlers = require('./lib/handlers')
+const weatherMiddlware = require('./lib/middleware/weather')
+
 const app = express()
-app.disable('x-powered-by');
 const port = process.env.PORT || 3000
 
 const hbs = expressHandlebars.create({
@@ -22,12 +23,7 @@ app.set('view engine', 'handlebars');
 
 app.use(express.static(__dirname + '/public'))
 
-app.get('/headers', (req, res) => {
-    res.type('text/plain')
-    const headers = Object.entries(req.headers)
-    .map(([key, value]) => `${key}: ${value}`)
-    res.send(headers.join('\n'))
-})
+app.use(weatherMiddlware)
 
 app.get('/', handlers.home)
 
